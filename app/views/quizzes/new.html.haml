@@ -1,5 +1,5 @@
 .row
-  %form.span5.offset5(action="/quizzes" method="post")
+  = form_for(@quiz, :url => quizzes_path, :html => {:class=>["span5", "offset5"]}) do |f|
     %fieldset
       %legend Crear una nueva evaluación
       - if flash[:notice]
@@ -10,10 +10,7 @@
 
       %legend Preguntas
       %label.questions
-        %input(type="text" placeholder="Pregunta #1" name="questions[description[]]")
-        %input(type="text" placeholder="Pregunta #2" name="questions[description[]]")
-        %input(type="text" placeholder="Pregunta #3" name="questions[description[]]")
-        %input(type="text" placeholder="Pregunta #4" name="questions[description[]]")
-        %input(type="text" placeholder="Pregunta #5" name="questions[description[]]")
+        = f.fields_for :questions do |builder|    
+          = render "question_fields", :f => builder
       
       %button.btn(type="submit") Enviar
