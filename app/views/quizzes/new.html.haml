@@ -1,0 +1,19 @@
+.row
+  %form.span5.offset5(action="/quizzes" method="post")
+    %fieldset
+      %legend Crear una nueva evaluación
+      - if flash[:notice]
+        .alert.alert-success
+          = flash[:notice]
+      %label.name
+        %input(type="text" placeholder="Título de la evaluación" name="quiz[name]")
+
+      %legend Preguntas
+      %label.questions
+        %input(type="text" placeholder="Pregunta #1" name="questions[description[]]")
+        %input(type="text" placeholder="Pregunta #2" name="questions[description[]]")
+        %input(type="text" placeholder="Pregunta #3" name="questions[description[]]")
+        %input(type="text" placeholder="Pregunta #4" name="questions[description[]]")
+        %input(type="text" placeholder="Pregunta #5" name="questions[description[]]")
+      
+      %button.btn(type="submit") Enviar
