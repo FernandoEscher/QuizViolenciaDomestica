@@ -3,6 +3,8 @@ QuizViolenciaDomestica::Application.routes.draw do
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
+  
+  match 'receive/' => 'sms#receive_sms'
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
