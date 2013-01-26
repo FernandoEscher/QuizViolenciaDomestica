@@ -2,6 +2,8 @@
 
 class QuizzesController < ApplicationController
   def new
+    @quiz = Quiz.new
+    5.times { @quiz.questions.build }
   end
 
   def create
@@ -9,7 +11,6 @@ class QuizzesController < ApplicationController
 
     if @quiz.save
       flash[:notice] = "Creación exitosa"
-      puts params
       redirect_to :root
     else
       render :new
