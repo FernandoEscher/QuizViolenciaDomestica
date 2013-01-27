@@ -22,6 +22,9 @@ class SmsController < ApplicationController
     def receive_sms 
         # let's pretend that we've mapped this action to 
         # http://localhost:3000/sms in the routes.rb file
+        twilio_sid = "AC3e87c7e425bbbce3767e2c389cc6ffd0"
+        twilio_token = "e999ba3bef1d21c6d2255ea93640e89e"
+        twilio_phone_number = "5104233935"
 
         message_body = params["Body"]
         from_number = params["From"]
