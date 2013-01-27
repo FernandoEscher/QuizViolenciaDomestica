@@ -1,5 +1,5 @@
 class Quiz < ActiveRecord::Base
-  attr_accessible :name, :questions_attributes
+  attr_accessible :name, :questions_attributes, :created_at
   has_many :questions
   validates :name, presence: true
 
