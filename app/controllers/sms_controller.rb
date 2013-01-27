@@ -36,12 +36,15 @@ class SmsController < ApplicationController
         # si es ultima pregunta hacer la evaluacion
         
         
-        r=Response.where(:phone=>from_number)
-        if r.empty?
-          q = Question.first
-        else
-          q = Question.where(:id=>r.question_id+1)
+        r=Response.where(:phone=>from_number).count
+        
+        if r == Quiz.questions.count
+          flash[:notice] = "Gracias por tus respuestas!"
+          redirect_to :root
         end
+        
+        quiz = Quiz.first
+        q=Quiz.questions[r]
         
         if ["SI", "NO", "S", "N"].include?(message_body.upcase)
           Response.create(:phone=>from_number, :answer=>message_body.upcase, :question_id=>q.id)
