@@ -37,14 +37,14 @@ class SmsController < ApplicationController
         
         
         r=Response.where(:phone=>from_number).count
+        quiz = Quiz.first
         
-        if r == Quiz.questions.count
+        if r == quiz.questions.count
           flash[:notice] = "Gracias por tus respuestas!"
           redirect_to :root
         end
         
-        quiz = Quiz.first
-        q=Quiz.questions[r]
+        q=quiz.questions[r]
         if ["SI", "NO", "S", "N"].include?(message_body.upcase)
           Response.create(:phone=>from_number, :answer=>message_body.upcase, :question_id=>q.id)
         end
