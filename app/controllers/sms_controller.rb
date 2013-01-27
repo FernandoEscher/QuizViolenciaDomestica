@@ -40,7 +40,7 @@ class SmsController < ApplicationController
         quiz = Quiz.first
         
         q=quiz.questions[r]
-        if r < quiz.questions.count and ["SI", "NO", "S", "N"].include?(message_body.upcase)
+        if ["SI", "NO", "S", "N"].include?(message_body.upcase)
           Response.create(:phone=>from_number, :answer=>message_body.upcase, :question_id=>q.id)
         end
         
