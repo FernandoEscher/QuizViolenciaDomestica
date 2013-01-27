@@ -34,10 +34,10 @@ class SmsController < ApplicationController
         
         
         r=Response.where(:phone=>from_number)
-        if r
-          q = Question.where(:id=>r.question_id+1)
+        if r.empty?
+          q = Question.first
         else
-          q = Question.where(:id=>1)
+          q = Question.where(:id=>r.question_id+1)
         end
         
         if ["SI", "NO", "S", "N"].include?(message_body.upcase)
