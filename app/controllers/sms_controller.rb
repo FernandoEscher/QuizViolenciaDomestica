@@ -15,6 +15,7 @@ class SmsController < ApplicationController
         :to => number_to_send_to,
         :body => "This is an message. It gets sent to #{number_to_send_to}"
       )
+      
     end
     
     
@@ -24,6 +25,11 @@ class SmsController < ApplicationController
 
         message_body = params["Body"]
         from_number = params["From"]
+        country = params["FromCountry"]
         
+        # buscar si este numero esta en las respuestas
+        # si esta, enviar pregunta siguiente
+        # si no, enviar pregunta 1
+        # si es ultima pregunta hacer la evaluacion
       end
 end
