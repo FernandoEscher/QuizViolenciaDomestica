@@ -3,5 +3,4 @@ class Question < ActiveRecord::Base
   belongs_to :quiz
   has_many :responses
   validates :description, presence: true
-
 end
