@@ -40,8 +40,8 @@ class SmsController < ApplicationController
         quiz = Quiz.first
         
         if r == quiz.questions.count
-          flash[:notice] = "Gracias por tus respuestas!"
-          redirect_to :root
+          @question_to_send = "Por favor comunicate al numero 114 o al 2237-6830 para recibir ayuda profesional."
+          return
         end
         
         q=quiz.questions[r]
@@ -49,14 +49,15 @@ class SmsController < ApplicationController
           Response.create(:phone=>from_number, :answer=>message_body.upcase, :question_id=>q.id)
         end
         
-        question_to_send=q.description
-    
-        @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
-        @twilio_client.account.sms.messages.create(
-          :from => "+1#{twilio_phone_number}",
-          :to => from_number,
-          :body => question_to_send
-        )
+        @question_to_send=q.description
+        
+        
+        # @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
+        # @twilio_client.account.sms.messages.create(
+        #   :from => "+1#{twilio_phone_number}",
+        #   :to => from_number,
+        #   :body => question_to_send
+        # )
           
       end
 end
