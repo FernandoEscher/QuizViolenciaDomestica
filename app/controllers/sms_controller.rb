@@ -33,7 +33,7 @@ class SmsController < ApplicationController
         # si es ultima pregunta hacer la evaluacion
         
         
-        r=Response.where(:number=>from_number)
+        r=Response.where(:phone=>from_number)
         if r
           q = Question.where(:id=>r.question_id+1)
         else
