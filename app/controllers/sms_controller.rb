@@ -44,7 +44,7 @@ class SmsController < ApplicationController
         end
         
         if ["SI", "NO", "S", "N"].include?(message_body.upcase)
-          Response.create(:phone=>from_number, :answer=>message_body.upcase, :question=>q)
+          Response.create(:phone=>from_number, :answer=>message_body.upcase, :question_id=>q.id)
         end
         
         question_to_send=q.description
