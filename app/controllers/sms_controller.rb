@@ -37,20 +37,21 @@ class SmsController < ApplicationController
         # si es ultima pregunta hacer la evaluacion
         
         
-        r=Response.where(:phone=>from_number).count
         quiz = Quiz.first
-        
-        if r == quiz.questions.count
-          @question_to_send = "Por favor comunicate al numero 114 o al 2237-6830 para recibir ayuda profesional."
-          return
-        end
+        is_done = r == quiz.questions.count
         
         q=quiz.questions[r]
-        if ["SI", "NO", "S", "N"].include?(message_body.upcase)
+        if (not is_done) and ["SI", "NO", "S", "N"].include?(message_body.upcase)
           Response.create(:phone=>from_number, :answer=>message_body.upcase, :question_id=>q.id)
         end
         
-        @question_to_send=q.description
+        r=Response.where(:phone=>from_number).count  
+        if is_done
+          @question_to_send = "Por favor comunicate al numero 114 o al 2237-6830 para recibir ayuda profesional."
+        else
+          @question_to_send=q.description
+        end
+        
         
         
         # @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
