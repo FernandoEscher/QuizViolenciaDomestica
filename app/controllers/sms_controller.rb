@@ -31,5 +31,27 @@ class SmsController < ApplicationController
         # si esta, enviar pregunta siguiente
         # si no, enviar pregunta 1
         # si es ultima pregunta hacer la evaluacion
+        
+        
+        r=Response.where(:number=>from_number)
+        if r
+          q = Question.where(:id=>r.question_id+1)
+        else
+          q = Question.where(:id=>1)
+        end
+        
+        if message_body.upcase in ["SI", "NO", "S", "N"]
+          Response.create(:phone=>from_number, :answer=>message_body.upcase, :question=>q)
+        end
+        
+        question_to_send=q.description
+    
+        @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
+        @twilio_client.account.sms.messages.create(
+          :from => "+1#{twilio_phone_number}",
+          :to => from_number,
+          :body => question_to_send
+        )
+          
       end
 end
