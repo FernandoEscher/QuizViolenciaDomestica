@@ -1,7 +1,6 @@
 class SmsController < ApplicationController
   def send_text_message
-      #(510) 423-3935
-    
+      #(510) 423-3935    
       number_to_send_to = params[:number_to_send_to]
 
       twilio_sid = "AC3e87c7e425bbbce3767e2c389cc6ffd0"
