@@ -29,6 +29,8 @@ class SmsController < ApplicationController
         from_number = params["From"]
         country = params["FromCountry"]
         
+       
+        
         # buscar si este numero esta en las respuestas
         # si esta, enviar pregunta siguiente
         # si no, enviar pregunta 1
