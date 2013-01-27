@@ -1,6 +1,7 @@
 QuizViolenciaDomestica::Application.routes.draw do
   resources :quizzes
   resources :responses
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
   
