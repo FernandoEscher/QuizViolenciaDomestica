@@ -15,16 +15,46 @@ class SmsController < ApplicationController
         :to => number_to_send_to,
         :body => "This is an message. It gets sent to #{number_to_send_to}"
       )
+      
     end
     
     
     def receive_sms 
         # let's pretend that we've mapped this action to 
         # http://localhost:3000/sms in the routes.rb file
+        twilio_sid = "AC3e87c7e425bbbce3767e2c389cc6ffd0"
+        twilio_token = "e999ba3bef1d21c6d2255ea93640e89e"
+        twilio_phone_number = "5104233935"
 
         message_body = params["Body"]
         from_number = params["From"]
-
-        SMSLogger.log_text_message from_number, message_body
+        country = params["FromCountry"]
+        
+        # buscar si este numero esta en las respuestas
+        # si esta, enviar pregunta siguiente
+        # si no, enviar pregunta 1
+        # si es ultima pregunta hacer la evaluacion
+        
+        
+        r=Response.where(:phone=>from_number)
+        if r.empty?
+          q = Question.first
+        else
+          q = Question.where(:id=>r.question_id+1)
+        end
+        
+        if ["SI", "NO", "S", "N"].include?(message_body.upcase)
+          Response.create(:phone=>from_number, :answer=>message_body.upcase, :question_id=>q.id)
+        end
+        
+        question_to_send=q.description
+    
+        @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
+        @twilio_client.account.sms.messages.create(
+          :from => "+1#{twilio_phone_number}",
+          :to => from_number,
+          :body => question_to_send
+        )
+          
       end
 end

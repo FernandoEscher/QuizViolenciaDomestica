@@ -10,6 +10,7 @@ class QuizzesController < ApplicationController
     5.times { @quiz.questions.build }
   end
 
+
   def create
     @quiz = Quiz.new params[:quiz]
 
