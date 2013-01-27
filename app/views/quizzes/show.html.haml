@@ -5,15 +5,16 @@
         = @quiz.name
 
 .container
-  - @quiz.questions.each do |question|
+  = form_tag(end_quiz_path(@quiz), method: "post") do |f|
+    - @quiz.questions.each do |question|
+      .question
+        %h3= question.description
+        .answer
+          %p.yes Sí
+        .answer
+          %p.no No
+        %input{type: "hidden", name:"answers[#{question.id}]", value:"N"}
 
-    .question
-      %h3= question.description
-      .answer
-        %p Sí
-      .answer
-        %p No
-
-  .actions
-    %button.btn.btn-large.btn-block &laquo; Anterior
+    .actions
+      %button.btn.btn-large.btn-block Enviar
 
