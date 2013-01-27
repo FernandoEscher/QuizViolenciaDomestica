@@ -38,6 +38,7 @@ class SmsController < ApplicationController
         
         
         quiz = Quiz.first
+        r=Response.where(:phone=>from_number).count  
         
         q=quiz.questions[r]
         if ["SI", "NO", "S", "N"].include?(message_body.upcase)
