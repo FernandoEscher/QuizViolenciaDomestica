@@ -1,0 +1,12 @@
+
+.navbar.navbar-static-top.navbar-inverse
+  .navbar-inner
+    .container
+      %a.brand(href="#") Selecciona una Evaluación
+
+.container
+  - @quizzes.each do |quiz|
+    .question
+      %h3 
+        = quiz.name
+        = link_to "Ir a la evaluación", quiz_url(quiz)

@@ -1,0 +1,19 @@
+.navbar.navbar-static-top.navbar-inverse
+  .navbar-inner
+    .container
+      %a.brand(href="#")
+        = @quiz.name
+
+.container
+  - @quiz.questions.each do |question|
+
+    .question
+      %h3= question.description
+      .answer
+        %p Sí
+      .answer
+        %p No
+
+  .actions
+    %button.btn.btn-large.btn-block &laquo; Anterior
+

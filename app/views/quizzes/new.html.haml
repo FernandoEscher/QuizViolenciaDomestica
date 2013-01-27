@@ -1,16 +1,26 @@
-.row
-  = form_for(@quiz, :url => quizzes_path, :html => {:class=>["span5", "offset5"]}) do |f|
-    %fieldset
-      %legend Crear una nueva evaluación
-      - if flash[:notice]
-        .alert.alert-success
-          = flash[:notice]
-      %label.name
-        %input(type="text" placeholder="Título de la evaluación" name="quiz[name]")
+.navbar.navbar-static-top.navbar-inverse
+  .navbar-inner
+    .container
+      %a.brand(href="#") Crear Evaluación
 
-      %legend Preguntas
+.container
+  - if flash[:notice]
+    .alert.alert-success
+      = flash[:notice]  
+  = form_for(@quiz, :url => quizzes_path) do |f|
+    .question
+      %h3 Evaluación
+      %label.name
+        %input.input-xxlarge(type="text" placeholder="Título de la evaluación" name="quiz[name]")
+
+
+
+    .question
+      %h3 Preguntas
       %label.questions
         = f.fields_for :questions do |builder|    
           = render "question_fields", :f => builder
-      
-      %button.btn(type="submit") Enviar
+
+    .actions
+      %button.btn.btn-large.btn-block(type="submit") Enviar
+

@@ -1,6 +1,10 @@
 #encoding: utf-8
 
 class QuizzesController < ApplicationController
+  def index
+    @quizzes = Quiz.all
+  end
+
   def new
     @quiz = Quiz.new
     5.times { @quiz.questions.build }
@@ -15,5 +19,9 @@ class QuizzesController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @quiz = Quiz.find params[:id]
   end
 end
