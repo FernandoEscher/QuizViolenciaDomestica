@@ -43,10 +43,14 @@ class SmsController < ApplicationController
         q=quiz.questions[r]
         if ["SI", "NO", "S", "N"].include?(message_body.upcase)
           Response.create(:phone=>from_number, :answer=>message_body.upcase, :question_id=>q.id)
+          if  r < quiz.questions.count
+            q=quiz.questions[r+1]
+          else
+            q=nil
+          end
         end
         
-        r=Response.where(:phone=>from_number).count  
-        if r == quiz.questions.count
+        if q == nil
           @question_to_send = "Por favor comunicate al numero 114 o al 2237-6830 para recibir ayuda profesional."
         else
           @question_to_send=q.description
